@@ -10,6 +10,7 @@ const FlashcardPage = () => {
     const [fetchedStacks, setFetchedStacks] = useState([]);
 
     // define fetchStacks function to get stacks data from supabase
+    // this is a function not a constant
     const fetchStacks = async () => {
         const { data, error } = await supabase
             .from("stacks")
@@ -27,7 +28,8 @@ const FlashcardPage = () => {
     // it will render indefinitely if we don't limit it to only call fetchStacks for the first render with empty dependency 
     // also if we call fetchStacks on EVERY re-render... it will create a lot of unnecessary requests to database, so we control it
     useEffect(() => {
-        fetchStacks();
+        console.log("hi")
+        console.log(fetchStacks());
     }, []);
 
     return ( 
