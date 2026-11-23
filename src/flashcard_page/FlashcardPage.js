@@ -19,6 +19,7 @@ const FlashcardPage = () => {
             console.log("Error fetching data: ", error);
         } else {
             // set fetchedStacks state as the data fetched
+            console.log(data);
             setFetchedStacks(data);
         }
     };
@@ -28,19 +29,31 @@ const FlashcardPage = () => {
     // it will render indefinitely if we don't limit it to only call fetchStacks for the first render with empty dependency 
     // also if we call fetchStacks on EVERY re-render... it will create a lot of unnecessary requests to database, so we control it
     useEffect(() => {
-        console.log("hi")
-        console.log(fetchStacks());
+        console.log("Fetching Stacks...")
+        fetchStacks();
     }, []);
+    // we don't know if it actually succeeded or not and we don't know if fetchStacks is the problem here
+    // try commenting it out to see if it really is that or something else
 
     return ( 
         <div className="content">
             <h1>Flashcard Page</h1>
             {/* we map the fetchedStacks state variable, which is also a variable itself! */}
-            {fetchedStacks.map((fetchedStacks) => (
-                <Stack key={fetchedStacks.id} info={fetchedStacks}/>
-            ))}
+            <div className="stack-list">
+                {fetchedStacks.map((stack) => {
+                    console.log(stack.stack_name)
+                    return <Stack key={stack.id} info={stack}/>
+                })}
+            </div>
+
+            {/* Use {} around anything that needs to be evaluated, such as js */}
+            {/* when you use something.map( () => () ) it means implicit return, so u don't have to write return*/}
+            {/* when it's something.map( () => {} ) it means explicit return, so u have to write a return */}
         </div>
      );
 }
+
+// TODO:
+// and then connect the flashcards in each stack
  
 export default FlashcardPage;
