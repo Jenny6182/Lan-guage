@@ -26,7 +26,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/lesson" element={<LessonPage />} />
         <Route path="/flashcard" element={<FlashcardPage />} />
-        <Route path="/review" element={<ReviewPage />} />
+        <Route path="/review/:stackID" element={<ReviewPage />} />
+        {/* when you do /:stuff that's a placeholder to match anything in url */}
         <Route path="/read" element={<ReadPage />} />
         {/* the paths are the links u want the user to use
                 it has nothing to do with the actual folder paths in ur project */}
