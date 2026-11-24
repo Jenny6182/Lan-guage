@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import supabase from "../supabase-client.js";
 import Stack from "./Stack";
+import { fetchStacks } from "../services/databaseService.js";
 
 
 const FlashcardPage = () => {
@@ -11,26 +11,35 @@ const FlashcardPage = () => {
 
     // define fetchStacks function to get stacks data from supabase
     // this is a function not a constant
-    const fetchStacks = async () => {
-        const { data, error } = await supabase
-            .from("stacks")
-            .select("*");
-        if (error) {
-            console.log("Error fetching data: ", error);
-        } else {
-            // set fetchedStacks state as the data fetched
-            console.log(data);
-            setFetchedStacks(data);
-        }
-    };
+    // const fetchStacks = async () => {
+    //     const { data, error } = await supabase
+    //         .from("stacks")
+    //         .select("*");
+    //     if (error) {
+    //         console.log("Error fetching data: ", error);
+    //     } else {
+    //         // set fetchedStacks state as the data fetched
+    //         console.log(data);
+    //         setFetchedStacks(data);
+    //     }
+    // };
 
     // now we call fetchStacks function with useEffect to limit the number of times it runs
     // since fetchStack calls setFetchedStacks, it causes state to change and tell react to rerender everytime
     // it will render indefinitely if we don't limit it to only call fetchStacks for the first render with empty dependency 
     // also if we call fetchStacks on EVERY re-render... it will create a lot of unnecessary requests to database, so we control it
+    // NOTE: if we need to wait for an async function's return, we need to make the caller function async itself
+    // bc we need to wait for it
+    // useEffect can only either return undefined or clean up functions, so we cannot async useEffect
+    // bc it would return a Promise, hence we cannot directly put await inside useeffect bc that => useEffect to be async
+    // so we need to wrap fetchstacks and set fetchedstacks in another layer to avoid that, which itself can be async
     useEffect(() => {
-        console.log("Fetching Stacks...")
-        fetchStacks();
+        async function loadStacks() {
+            console.log("Fetching Stacks...")
+            const data = await fetchStacks();
+            setFetchedStacks(data);
+        }
+        loadStacks();
     }, []);
     // we don't know if it actually succeeded or not and we don't know if fetchStacks is the problem here
     // try commenting it out to see if it really is that or something else

@@ -6,7 +6,6 @@ import LessonPage from './lesson_page/LessonPage';
 import ReviewPage from './flashcard_page/ReviewPage';
 import ReadPage from './lesson_page/ReadPage';
 import { Routes, Route } from 'react-router';
-import supabase from "./supabase-client";
 
 // root component - App! the top layer thing that gets rendered in index (the biggest box)
 // aka, top of component tree

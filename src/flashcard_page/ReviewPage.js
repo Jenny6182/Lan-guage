@@ -1,6 +1,6 @@
 import FlashcardList from "./FlashcardList";
 import * as data from "../TempData";
-import supabase from "../supabase-client";
+import { fetchCards } from "../services/databaseService";
 
 const ReviewPage = () => {
     // const [newCard, setNewCard] = useState("");

@@ -1,4 +1,5 @@
 import Flashcard from "./Flashcard"
+import { fetchCards } from "../services/databaseService";
 
 const FlashcardList = (props) => {
     const flashcards = props.flashcards
