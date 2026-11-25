@@ -19,7 +19,7 @@ export async function fetchStacks() {
     }
 };
 
-export async function fetchCards(stackID) {
+export async function fetchCardIDs(stackID) {
     const { data, error } = await supabase
         .from("stack_cards")
         .select("*")
@@ -32,3 +32,34 @@ export async function fetchCards(stackID) {
         return data;
     }    
 };
+
+export async function fetchCard(cardID) {
+    const { data, error } = await supabase
+        .from("cards")
+        .select("*")
+        .eq("id", cardID)
+        .single();
+        // if you don't use .single, then query result will always be an array, 
+        // use .single to turm query result into an object if you know there's only gonna be one result for sure!!
+    if (error) {
+        console.log("Error fetching data: ", error);
+    } else {
+        // set fetchedStacks state as the data fetched
+        console.log(data);
+        return data;
+    }    
+}
+
+
+// TODO 11/25: Refactor the way you fetch cards (should fetch in one query)
+// so that you are not making one query call for every single card,
+// which would induce a lot of overhead cost and time...
+// Should try to change to either use one or the other approach:
+// 1. use supabase foreign key relation, special java client syntax to get the ch_name and en_name for each card
+// 2. use two simpler queries, one get all id (which u did), 
+// second get all cards that match any id in ur list of ids
+// aka use .in() sql method
+// const { data: cards, error: cardError } = await supabase
+    // .from("Card")
+    // .select("*")
+    // .in("id", cardIds);
