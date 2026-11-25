@@ -5,7 +5,7 @@ import { fetchCard } from '../services/databaseService';
 const Flashcard = ({ info }) => {
     const cardID = info.card_id
     const [front, setFront] = useState([]);
-    const [back, setBack] = useState([]);e
+    const [back, setBack] = useState([]);
 
     useEffect(() => {
                 async function loadCard() {
