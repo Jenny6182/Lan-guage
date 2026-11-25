@@ -1,10 +1,11 @@
 import Level from "./Level"
 import * as data from "../TempData";
+import { fetchLevels, fetchUnits, fetchLessons } from "../services/databaseService";
 
 const LessonPage = () => {
     const levels = data.levels
     console.log(levels)
-
+    
     return ( 
         <div className="content">
             <h1>Lesson Page</h1>
@@ -23,3 +24,6 @@ export default LessonPage;
 
 
 // Todo: lesson page = map of levels, level = map of units, unit = map of lessons
+
+// TODO 11/25: get the lessons read query and structuring working too!! and then make the drop down menus
+// and then we can work on either linking lessons with stacks of cards, or adding and deleting cards or editing

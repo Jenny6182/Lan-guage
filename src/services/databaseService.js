@@ -40,6 +40,50 @@ export async function fetchCards(cardIDs) {
     }    
 }
 
+export async function fetchLevels() {
+    const { data, error } = await supabase
+        .from("levels")
+        .select("*")
+        .order("order_id");
+    if (error) {
+        console.log("Error fetching data: ", error);
+    } else {
+        console.log(data);
+        return data;
+    }
+}
+
+export async function fetchUnits(levelID) {
+    const { data, error } = await supabase
+        .from("units")
+        .select("*")
+        .eq("level_id", levelID)
+        .order("order_id");
+    if (error) {
+        console.log("Error fetching data: ", error);
+    } else {
+        console.log(data);
+        return data;
+    }    
+};
+
+export async function fetchLessons(unitID) {
+    const { data, error } = await supabase
+        .from("units")
+        .select("*")
+        .eq("unit_id", unitID)
+        .order("order_id");
+    if (error) {
+        console.log("Error fetching data: ", error);
+    } else {
+        console.log(data);
+        return data;
+    }    
+};
+
+
+
+
 
 // NOTE: await require the function to be async, but async does not require there to be await in the function
 // function has await => function is async, but function is async does NOT imply function has await
