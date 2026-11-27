@@ -1,11 +1,18 @@
 import Level from "./Level"
-import * as data from "../TempData";
-import { fetchLevels, fetchUnits, fetchLessons } from "../services/databaseService";
+import { fetchLevels } from "../services/databaseService";
+import { useEffect, useState } from "react";
 
 const LessonPage = () => {
-    const levels = data.levels
-    console.log(levels)
-    
+    const [levels, setLevels] = useState([]);
+
+    useEffect( () => {
+        async function loadLevels() {
+            const data = await fetchLevels();
+            setLevels(data)
+        }
+        loadLevels();
+    }, [] );
+
     return ( 
         <div className="content">
             <h1>Lesson Page</h1>
