@@ -48,7 +48,7 @@ export async function fetchLevels() {
     if (error) {
         console.log("Error fetching data: ", error);
     } else {
-        console.log(data);
+        console.log("Levels: ", data);
         return data;
     }
 }
@@ -62,21 +62,21 @@ export async function fetchUnits(levelID) {
     if (error) {
         console.log("Error fetching data: ", error);
     } else {
-        console.log(data);
+        console.log("Units: ", data);
         return data;
     }    
 };
 
 export async function fetchLessons(unitID) {
     const { data, error } = await supabase
-        .from("units")
+        .from("lessons")
         .select("*")
         .eq("unit_id", unitID)
         .order("order_id");
     if (error) {
         console.log("Error fetching data: ", error);
     } else {
-        console.log(data);
+        console.log("Lessons: ", data);
         return data;
     }    
 };
