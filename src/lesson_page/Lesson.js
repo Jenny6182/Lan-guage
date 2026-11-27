@@ -1,11 +1,9 @@
-const Lesson = (props) => {
-    const info = props.info
-    const lessonName = info.lessonName
+const Lesson = ({ info }) => {
 
     return ( 
         <div className="lesson">
             <a href="/read">
-                <h2>{ lessonName }</h2>
+                <h2>{ info.lesson_name }</h2>
             </a>
         </div>   
      );
